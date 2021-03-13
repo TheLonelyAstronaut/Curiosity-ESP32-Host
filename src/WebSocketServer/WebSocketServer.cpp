@@ -28,7 +28,7 @@ void WebSocketServer::onEvent(AsyncWebSocket *server, AsyncWebSocketClient *clie
         case WS_EVT_PONG:
         case WS_EVT_ERROR:
             break;
-  }
+    }
 }
 
 void WebSocketServer::handleWebSocketMessage(void *arg, uint8_t *data, size_t len)
