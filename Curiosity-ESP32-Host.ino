@@ -2,6 +2,7 @@
 #include "src/WiFi/WiFiController.h";
 #include "src/Utils/Logger/Logger.h";
 #include "src/Camera/CameraController.h";
+#include "src/WebSocketServer/WebSocketServer.h";
 
 std::string _ssid = "1b4077";
 std::string _password = "268726006";
@@ -10,6 +11,7 @@ bool _debugEnabled = true;
 
 WiFiController* wifi;
 CameraController* camera;
+WebSocketServer* server;
 
 void setup() {
 	Logger::configure(_baudRate, _debugEnabled);
@@ -18,6 +20,7 @@ void setup() {
 
 	wifi = new WiFiController(_ssid, _password);
 	camera = new CameraController();
+	server = new WebSocketServer();
 
   	int connectionResult = wifi->connect();
 
@@ -32,6 +35,7 @@ void setup() {
 	}
 
 	camera->startCamera();
+	server->start();
 }
 
 void loop() {
