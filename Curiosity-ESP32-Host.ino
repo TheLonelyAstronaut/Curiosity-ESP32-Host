@@ -4,11 +4,13 @@
 
 std::string _ssid = "1b4077";
 std::string _password = "268726006";
+unsigned int baudRate = 115200;
+bool debugEnabled = true;
 
 WiFiController wifi = WiFiController(_ssid, _password);
 
 void setup() {
-	Logger::configure();
+	Logger::configure(baudRate, debugEnabled);
 	Logger::log("\nStarting application");
 	Logger::log("Connecting to WiFi point\n");
 
