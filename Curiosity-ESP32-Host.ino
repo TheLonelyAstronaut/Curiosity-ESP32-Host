@@ -8,6 +8,8 @@ std::string _ssid = "1b4077";
 std::string _password = "268726006";
 unsigned int _baudRate = 115200;
 bool _debugEnabled = true;
+int _asyncWebServerPort = 82;
+char* _asyncWebSocketPath = "ws";
 
 WiFiController* wifi;
 CameraController* camera;
@@ -20,7 +22,7 @@ void setup() {
 
 	wifi = new WiFiController(_ssid, _password);
 	camera = new CameraController();
-	server = new WebSocketServer();
+	server = new WebSocketServer(_asyncWebServerPort, _asyncWebSocketPath);
 
   	int connectionResult = wifi->connect();
 

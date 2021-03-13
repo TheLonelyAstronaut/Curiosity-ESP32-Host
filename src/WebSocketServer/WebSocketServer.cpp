@@ -1,9 +1,9 @@
 #include "WebSocketServer.h"
 
-WebSocketServer::WebSocketServer()
+WebSocketServer::WebSocketServer(int _port, char* _path)
 {
-    this->ws = new AsyncWebSocket("/ws");
-    this->server = new AsyncWebServer(82);
+    this->ws = new AsyncWebSocket(_path);
+    this->server = new AsyncWebServer(_port);
     this->ws->onEvent(WebSocketServer::onEvent);
     this->server->addHandler(this->ws);
 }
