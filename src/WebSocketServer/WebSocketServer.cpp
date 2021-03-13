@@ -1,7 +1,14 @@
 #include "WebSocketServer.h"
+#include "../Utils/Logger/Logger.h"
 
-WebSocketServer::WebSocketServer(int _port, char* _path)
+#include <sstream>
+
+T_HANDLERS WebSocketServer::HANDLERS;
+
+WebSocketServer::WebSocketServer(int _port, char* _path, T_HANDLERS& handlers)
 {
+    WebSocketServer::HANDLERS = handlers;
+    
     this->ws = new AsyncWebSocket(_path);
     this->server = new AsyncWebServer(_port);
     this->ws->onEvent(WebSocketServer::onEvent);
@@ -37,9 +44,27 @@ void WebSocketServer::handleWebSocketMessage(void *arg, uint8_t *data, size_t le
 
     if (info->final && info->index == 0 && info->len == len && info->opcode == WS_TEXT) {
         data[len] = 0;
+        std::string command = reinterpret_cast<char*>(data);
+        std::string key;
+        double value;
 
-        if (strcmp((char*)data, "toggle") == 0) {
-           
+        try
+        {
+            std::stringstream stream(command);
+            stream >> key;
+            stream >> value;
+        }
+        catch(const std::exception& e)
+        {
+            Logger::log(e.what());
+        }
+
+        auto iterator = WebSocketServer::HANDLERS.find(key);
+
+        if(iterator != WebSocketServer::HANDLERS.end()) {
+            (iterator->second)(value);
+        } else {
+            Logger::log("Unknown command");
         }
     }
 }

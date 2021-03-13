@@ -1,8 +1,8 @@
 #ifndef Logger_h
 #define Logger_h
 
-#include <iostream>
 #include "Arduino.h"
+#include <iostream>
 
 class Logger {
 public:
@@ -17,6 +17,14 @@ public:
 
     static inline void log(std::string _string) {
         Serial.println(_string.c_str());
+    }
+
+    static inline void log(int _number) {
+        Serial.println(_number);
+    }
+
+    static inline void log(double _number) {
+        Serial.println(_number);
     }
 };
 

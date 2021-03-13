@@ -72,12 +72,13 @@
   <div class="topnav">
     <h1>ESP WebSocket Server</h1>
   </div>
-  <img src="http://192.168.0.19:81/stream"/>
+  <!--img src="http://192.168.43.158:81/stream"/>-->
   <div class="content">
     <div class="card">
       <h2>Output - GPIO 2</h2>
       <p class="state">state: <span id="state">%STATE%</span></p>
-      <p><button id="button" class="button">Toggle</button></p>
+      <p><button id="servo" class="button">Servo</button></p>
+      <p><button id="engine" class="button">Engine</button></p>
     </div>
   </div>
 <script>
@@ -113,10 +114,14 @@
     initButton();
   }
   function initButton() {
-    document.getElementById('button').addEventListener('click', toggle);
+    document.getElementById('servo').addEventListener('click', servo);
+    document.getElementById('engine').addEventListener('click', engine);
   }
-  function toggle(){
-    websocket.send('toggle');
+  function servo(){
+    websocket.send('servo_rotate 12.3412');
+  }
+  function engine(){
+    websocket.send('engine_move -2.123');
   }
 </script>
 </body>
