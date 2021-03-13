@@ -1,4 +1,4 @@
-# Curiosity-ESP32-Host
+# Curiosity ESP32 Host
 ESP32 Host for WiFi/Bluetooth controlled car.
 
 Used libraries:
