@@ -2,6 +2,7 @@
 #define Logger_h
 
 #include <iostream>
+#include "Arduino.h"
 
 class Logger {
 public:
