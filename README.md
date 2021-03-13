@@ -8,7 +8,7 @@ Used libraries:
 - ESP32 STL
 
 ## Start instructions:
-- Install on necessary drivers for FTDI232 or analog
+- Install all necessary drivers for FTDI232 or analog
 - Install ESP32 lib for Arduino IDE
 - Connect ESP32-CAM to PC with FTDI232/etc.
 - Open sketch in Arduino IDE, in Tools choose "ESP32 Wrover Module" on "board" section and "Huge APP" on "Partition Scheme"
