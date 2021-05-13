@@ -32,6 +32,13 @@ int WiFiController::connect()
     return -1;
 }
 
+int WiFiController::enableHotspot()
+{
+    WiFi.softAP(this->ssid.c_str(), this->password.c_str());
+
+    return 0;
+}
+
 std::string WiFiController::getLocalIP()
 {
     return this->localIP;

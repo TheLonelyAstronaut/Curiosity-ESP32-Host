@@ -14,6 +14,7 @@ public:
 
     WiFiController(std::string _ssid, std::string _password);
     int connect();
+    int enableHotspot();
     std::string getLocalIP();
 };
 #endif

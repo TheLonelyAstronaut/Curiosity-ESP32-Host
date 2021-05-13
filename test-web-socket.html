@@ -72,18 +72,23 @@
   <div class="topnav">
     <h1>ESP WebSocket Server</h1>
   </div>
-  <!--img src="http://192.168.43.158:81/stream"/>-->
+  <!--<img src="http://192.168.0.19:81/stream"/>-->
   <div class="content">
     <div class="card">
       <h2>Output - GPIO 2</h2>
       <p class="state">state: <span id="state">%STATE%</span></p>
-      <p><button id="servo" class="button">Servo</button></p>
-      <p><button id="engine" class="button">Engine</button></p>
+      <p><button id="servo_left" class="button">Servo Left</button></p>
+      <p><button id="servo_right" class="button">Servo Right</button></p>
+      <p><button id="servo_off" class="button">Servo Off</button></p>
+      <p><button id="engine_plus" class="button">Engine Up</button></p>
+      <p><button id="engine_minus" class="button">Engine Down</button></p>
+      <p><button id="engine_off" class="button">Engine Off</button></p>
     </div>
   </div>
 <script>
   var gateway = `ws://192.168.0.19:82/ws`;
   var websocket;
+  let servoPosition = 90;
   window.addEventListener('load', onLoad);
   function initWebSocket() {
     console.log('Trying to open a WebSocket connection...');
@@ -114,14 +119,38 @@
     initButton();
   }
   function initButton() {
-    document.getElementById('servo').addEventListener('click', servo);
-    document.getElementById('engine').addEventListener('click', engine);
+    document.getElementById('servo_right').addEventListener('click', servoRight);
+    document.getElementById('servo_left').addEventListener('click', servoLeft);
+    document.getElementById('servo_off').addEventListener('click', servoOff);
+    document.getElementById('engine_plus').addEventListener('click', enginePlus);
+    document.getElementById('engine_minus').addEventListener('click', engineMinus);
+    document.getElementById('engine_off').addEventListener('click', engineOff);
   }
-  function servo(){
-    websocket.send('servo_rotate 12.3412');
+  function servoRight(){
+    servoPosition += 25;
+    console.log(servoPosition);
+    websocket.send(`servo_rotate ${servoPosition}`);
   }
-  function engine(){
-    websocket.send('engine_move -2.123');
+  function servoLeft(){
+    servoPosition -= 35;
+    console.log(servoPosition);
+    websocket.send(`servo_rotate ${servoPosition}`);
+  }
+  function servoOff(){
+    servoPosition = 90;
+    console.log(servoPosition);
+    websocket.send(`servo_rotate ${servoPosition}`);
+  }
+  function enginePlus(){
+    websocket.send('engine_move 1');
+  }
+
+  function engineMinus(){
+    websocket.send('engine_move 0');
+  }
+
+  function engineOff(){
+    websocket.send('engine_move 0.5');
   }
 </script>
 </body>
